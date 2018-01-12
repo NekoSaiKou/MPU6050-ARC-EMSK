@@ -91,7 +91,7 @@ int main(void) {
 	uart_print(console, "Initializing.....");
 	Lcd_DisplayString(0, 0, "Initializing.....");
 	gyro_init(console, i2c, gpio);
-	uart_print(console, "Done!!!\r\n");
+	uart_print(console, "\nDone!!!\r\n");
 	Lcd_DisplayString(0, 0, "Done!!");
 	Lcd_DisplayString(1, 0, "Hello My Friend");
 	LED_Breath(gpio, 3);
@@ -272,7 +272,7 @@ void gyro_init(DWCREG_PTR console, DWCREG_PTR i2c, DWCREG_PTR gpio) {
 		gpio[SWPORTA_DR] = process << 8 | process << 20;
 		gpio[SWPORTC_DR] = process << 8 | process << 20;
 
-		sprintf(strng, "Process %4d / 4000\r\n", cal_int);
+		sprintf(strng, "\rProcess %4d / 4000\r", cal_int);
 		uart_print(console, (strng));
 		//uart_print(console, "\r");
 		sprintf(strng, "%4d/4000\r\n", cal_int);
