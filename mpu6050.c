@@ -73,7 +73,7 @@ int main(void) {
 
 	//set gpio pins into output mode
 	gpio[SWPORTC_DDR] = 0xff0ff00; //PortC - output 1111 1111 0000 1111 1111 0000 0000
-	gpio[SWPORTA_DDR] = 0xff0ff00; //PortC - output 1111 1111 0000 1111 1111 0000 0000
+	gpio[SWPORTA_DDR] = 0xff0ff00; //PortA - output 1111 1111 0000 1111 1111 0000 0000
 	//initialize dw i2c controller
 	i2c_init(i2c, I2C_HIGH_SPEED, I2C_SLAVE_ADDRESS);
 	//initialize spi controller and LCD
@@ -116,13 +116,13 @@ int main(void) {
 		int xfix = angle_y * sin(gyro_z * 0.000000133231241);
 		int yfix = angle_x * sin(gyro_z * 0.000000133231241);
 		angle_x += xfix; //If the IMU has yawed transfer the y angle to the x angel
-		angle_y -= yfix; //If the IMU has yawed transfer the y angle to the x angel
+		angle_y -= yfix; //If the IMU has yawed transfer the x angle to the y angel
 
 		//ACC
 		acc_total_vector = sqrt(
 				(acc_x * acc_x) + (acc_y * acc_y) + (acc_z * acc_z)); //Calculate the total accelerometer vector
 		//57.2957 = 1 / (3.142 / 180) The C arcsin function is in radian
-		angle_y_acc = asin((float) acc_y / acc_total_vector) * 57.2957; //Calculate the y angle
+		angle_y_acc = asin((float) acc_y / acc_total_vector) * 57.2957;  //Calculate the y angle
 		angle_x_acc = asin((float) acc_x / acc_total_vector) * -57.2957; //Calculate the x angle
 
 		//Place the MPU-6050 spirit level and note the values in the following two lines for calibration
